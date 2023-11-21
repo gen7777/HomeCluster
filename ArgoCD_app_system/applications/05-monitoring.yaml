@@ -12,8 +12,8 @@ metadata:
 spec:
   project: system-utils
   source:
-    repoURL: 'https://github.com/BigKAA/youtube'
-    path: argocd/01-clusterapp/04-monitoring-ns
+    repoURL: 'https://github.com/gen7777/HomeCluster'
+    path: ArgoCD_app_system/01-clusterapp/04-monitoring-ns
     targetRevision: master
   destination:
     server: 'https://kubernetes.default.svc'

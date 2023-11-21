@@ -93,13 +93,13 @@ spec:
               mountPath: /persistentvolumes
           env:
             - name: PROVISIONER_NAME
-              value: kryukov.local/nfs
+              value: petrenko.local/nfs
             - name: NFS_SERVER
-              value: 192.168.218.170
+              value: 192.168.0.140
             - name: NFS_PATH
-              value: /var/nfs-disk
+              value: /nfs
       volumes:
         - name: nfs-client-root
           nfs:
-            server: 192.168.218.170
-            path: /var/nfs-disk
+            server: 192.168.0.140
+            path: /nfs

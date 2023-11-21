@@ -34,8 +34,8 @@ spec:
     - server auth
     - client auth
   dnsNames:
-  - kryukov.local
-  - mon.kryukov.local
+  - petrenko.local
+  - mon.petrenko.local
   issuerRef:
     name: monitoring-issuer
     # We can reference ClusterIssuers by changing the kind here.

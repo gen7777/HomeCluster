@@ -8,8 +8,8 @@ metadata:
 spec:
   project: system-utils
   source:
-    repoURL: 'https://github.com/BigKAA/youtube'
-    path: argocd/01-clusterapp/01-nfs
+    repoURL: 'https://github.com/gen7777/HomeCluster'
+    path: ArgoCD_app_system/01-clusterapp/01-nfs
     targetRevision: master
   destination:
     server: 'https://kubernetes.default.svc'

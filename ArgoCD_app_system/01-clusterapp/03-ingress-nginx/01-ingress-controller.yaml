@@ -347,7 +347,7 @@ spec:
             # Задаём класс, который можно указывать при
             # определении ingress
             # - --ingress-class=nginx
-            - --ingress-class=system-ingress
+            - --ingress-class=nginx
             - --validating-webhook=:8443
             - --validating-webhook-certificate=/usr/local/certificates/cert
             - --validating-webhook-key=/usr/local/certificates/key

@@ -60,7 +60,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: managed-nfs-storage
-provisioner: kryukov.local/nfs
+provisioner: petrenko.local/nfs
 parameters:
   onDelete: delete
 ---

@@ -132,7 +132,7 @@ spec:
         imagePullPolicy: IfNotPresent
         args:
           - --cert-dir=/tmp
-          - --secure-port=4443
+          - --secure-port=443
           - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
           - --kubelet-insecure-tls
           - --kubelet-use-node-status-port
@@ -146,7 +146,7 @@ spec:
             memory: 500Mi
         ports:
         - name: https
-          containerPort: 4443
+          containerPort: 443
           protocol: TCP
         readinessProbe:
           httpGet:

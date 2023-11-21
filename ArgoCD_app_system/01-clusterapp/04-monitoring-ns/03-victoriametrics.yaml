@@ -92,19 +92,19 @@ spec:
             - containerPort: 8428
               name: victoria
               protocol: TCP
-#          readinessProbe:
-#            httpGet:
-#              path: /vm/metrics
-#              port: victoria
-#            initialDelaySeconds: 5
-#            periodSeconds: 15
-#          livenessProbe:
-#            httpGet:
-#              path: /vm/metrics
-#              port: victoria
-#            initialDelaySeconds: 5
-#            periodSeconds: 15
-#            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /vm/metrics
+              port: victoria
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /vm/metrics
+              port: victoria
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 200m

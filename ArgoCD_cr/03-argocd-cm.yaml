@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  url: https://argocd.petrenko.local:443
+
+  accounts.denis: apiKey, login
+  accounts.denis.enabled: "true"
+
+  repositories: |
+    - type: git
+      url: https://github.com/gen7777/youtube

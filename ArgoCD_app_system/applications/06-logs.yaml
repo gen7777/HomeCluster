@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://github.com/gen7777/HomeCluster'
     path: ArgoCD_app_system/01-clusterapp/05-logs
-    targetRevision: master
+    targetRevision: ain
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: logging

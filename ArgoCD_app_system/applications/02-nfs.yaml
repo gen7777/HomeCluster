@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://github.com/gen7777/HomeCluster'
     path: ArgoCD_app_system/01-clusterapp/01-nfs
-    targetRevision: master
+    targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: nfs-client

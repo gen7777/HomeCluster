@@ -4,23 +4,23 @@ kind: ConfigMap
 metadata:
   name: init-clear
   namespace: monitoring
-data:
-  clear.sh: |
-    #! /bin/bash
-
-    for DIR in `find /victoria-metrics-data/data/small/ -type d | grep -E '^\S.*\/[0-9]{4}_[0-9]{2}\/[0-9].*'`
-    do
-        if [ ! -f $DIR/index.bin ]; then
-            rm -rf  $DIR
-        fi
-    done
-
-    for DIR in `find /victoria-metrics-data/data/big/ -type d | grep -E '^\S.*\/[0-9]{4}_[0-9]{2}\/[0-9].*'`
-    do
-        if [ ! -f $DIR/index.bin ]; then
-            rm -rf $DIR
-        fi
-    done
+#data:
+#  clear.sh: |
+#    #! /bin/bash
+#
+#    for DIR in `find /victoria-metrics-data/data/small/ -type d | grep -E '^\S.*\/[0-9]{4}_[0-9]{2}\/[0-9].*'`
+#    do
+#        if [ ! -f $DIR/index.bin ]; then
+#            rm -rf  $DIR
+#        fi
+#    done
+#
+#    for DIR in `find /victoria-metrics-data/data/big/ -type d | grep -E '^\S.*\/[0-9]{4}_[0-9]{2}\/[0-9].*'`
+#    do
+#        if [ ! -f $DIR/index.bin ]; then
+#            rm -rf $DIR
+#        fi
+#    done
 ---
 apiVersion: v1
 kind: Service

@@ -410,6 +410,9 @@ spec:
             requests:
               cpu: 100m
               memory: 90Mi
+            limits:
+              cpu: 100m
+              memory: 90Mi
       terminationGracePeriodSeconds: 300
       volumes:
         - name: webhook-cert
@@ -434,7 +437,7 @@ webhooks:
           - extensions
           - networking.k8s.io
         apiVersions:
-          - v1beta1
+          - v1
         operations:
           - CREATE
           - UPDATE

@@ -1,0 +1,55 @@
+{{- $checksumEnv := include (print $.Template.BasePath "/configmap.yaml") . | sha256sum -}}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.serviceName }}
+  name: {{ .Values.serviceName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceName }}
+# Autorestart
+      annotations:
+        checksum/alertmanager: {{ $checksumEnv }}
+    spec:
+      imagePullSecrets:
+      - name: "cred-alertmanager"
+      containers:
+        - name: alertmanager
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          env:
+          ports:
+            - containerPort: {{ .Values.network.port }}
+              name: {{ .Values.network.name }}
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 250m
+              memory: 750Mi
+          volumeMounts:
+          - name: config-volume
+            mountPath: /etc/alertmanager/alertmanager.yml
+            subPath: alertmanager.yml
+          - name: config-volume
+            mountPath: /etc/alertmanager/telegram.tmpl
+            subPath: telegram.tmpl
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.serviceName }}
+            items:
+              - key: alertmanager.yml
+                path: alertmanager.yml
+              - key: telegram.tmpl
+                path: telegram.tmpl
+
+---

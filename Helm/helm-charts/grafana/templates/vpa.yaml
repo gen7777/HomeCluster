@@ -1,0 +1,16 @@
+---
+
+apiVersion: autoscaling.k8s.io/v1beta2
+kind: VerticalPodAutoscaler
+metadata:
+  name: vpa-grafana
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: {{ .Values.serviceName }}
+  updatePolicy:
+    updateMode: "Off"
+
+---
+

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.serviceName }}
+data:
+{{- if .Values.plugins }}
+  plugins: {{ join "," .Values.plugins }}
+{{- end }}
+{{ (.Files.Glob (print  "config/grafana.ini"  ) ).AsConfig | indent 2 }}
+
+{{ (.Files.Glob (print  "config/ldap.toml"  ) ).AsConfig | indent 2 }}

@@ -1,0 +1,57 @@
+groups:
+- name: kubernetes-system-service.rules
+  rules:
+  #1 Сервис  Scheduler не отвечает
+  - alert: KubeSchedulerDown
+    expr: absent(up{job="kube-scheduler"} == 1)
+    for: 15m
+    labels:
+      severity: critical
+    annotations:
+      description: KubeScheduler has disappeared from Prometheus target discovery.
+      summary: Target disappeared from Prometheus target discovery.
+  #2 Недоступны targets сервиса Scheduler
+  - alert: KubeSchedulerTargetDown
+    expr: sum(up{job="kube-scheduler"}) by (datacenter) < 3
+    for: 15m
+    labels:
+      severity: warning
+    annotations:
+      description: KubeScheduler  (datacenter {{ $labels.datacenter }}) has disappeared from Prometheus target (instance {{ $labels.exported_instance }}) discovery.
+      summary: Target disappeared from Prometheus target discovery.
+  #3 Сервис  ControllerManager не отвечает
+  - alert: KubeControllerManagerDown
+    expr:  absent(up{job="kube-controller-manager"} == 1)
+    for: 15m
+    labels:
+      severity: critical
+    annotations:
+      description: KubeControllerManager has disappeared from Prometheus target discovery.
+      summary: Target disappeared from Prometheus target discovery.
+  #4 Недоступны targets сервиса kube-controller-manager
+  - alert: KubeControllerManagerTargetDown
+    expr: sum(up{job="kube-controller-manager"}) by (datacenter) < 3
+    for: 15m
+    labels:
+      severity: warning
+    annotations:
+      description: KubeControllerManager  (datacenter {{ $labels.datacenter }}) has disappeared from Prometheus target (instance {{ $labels.exported_instance }}) discovery.
+      summary: Target disappeared from Prometheus target discovery
+  #5 Сервис  KubeProxy не отвечает
+  - alert: KubeProxyDown
+    expr: absent(up{job="kube-proxy"} == 1)
+    for: 15m
+    labels:
+      severity: critical
+    annotations:
+      description: KubeProxy has disappeared from Prometheus target discovery.
+      summary: Target disappeared from Prometheus target discovery.
+  #6 Недоступны targets сервиса KubeProxy
+  - alert: KubeProxyTargetDown
+    expr: sum(up{job="kube-proxy"}) by (datacenter) < 3
+    for: 15m
+    labels:
+      severity: warning
+    annotations:
+      description: KubeProxy (datacenter {{ $labels.datacenter }}) has disappeared from Prometheus target (instance {{ $labels.exported_instance }}) discovery.
+      summary: Target disappeared from Prometheus target discovery

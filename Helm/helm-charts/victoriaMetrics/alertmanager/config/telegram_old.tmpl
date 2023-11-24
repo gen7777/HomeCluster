@@ -1,0 +1,60 @@
+{{ define "telegram.message" }}
+{{ range .Alerts }}
+{{ $severity := .Labels.severity -}}
+{{ $alertName := .Labels.alertname }}
+{{ $dc := .Labels.datacenter }}
+{{ $ns := .Labels.namespace }}
+{{ $summary := .Annotations.summary }}
+{{ $descr := .Annotations.description}}
+{{ $runbook := .Annotations.runbook_url }}
+{{ if eq .Status "firing" }}
+🔥 <b>{{ $alertName }}</b>
+{{ if eq $severity "critical" }}🤬 <b>Уровень:</b> Критический 
+{{ if ne $dc "" }}🏠 Датацентр: <b>{{ $dc }}</b> {{ end }}{{ if ne $ns "" }}👉Namespace: <b>{{ $ns }}</b> {{ end }}{{ if ne $summary "" }}👉 <b>{{ $summary }}</b> {{ end }}
+{{ if ne $descr "" }}ℹ <b>Описание:</b>{{ $descr }}{{ end }}
+{{ if ne $runbook }}ℹ <b>RunBook:</b>{{ $runbook }}{{ end }}
+<b>ДопИнфо:</b>
+{{ range $key, $value := .Labels }}
+{{ if ne $key "alertname" }}
+<b>{{ $key }}</b>: <i>{{ $value }}</i>{{ end }}
+{{ end }}
+{{ else if eq $severity "warning" }}
+😱 <b>Уровень:</b> Внимание
+{{ if ne $dc "" }}🏠 Датацентр: <b>{{ $dc }}</b>{{ end }}
+{{ if ne $ns "" }}👉 Namespace: <b>{{ $ns }}</b>{{ end }}
+👉 <b>{{ $summary }}</b>
+ℹ <b>Описание:</b>{{ $descr }}
+{{ if ne $runbook }}ℹ <b>RunBook:</b>{{ .Annotations.runbook_url }}{{ end }}
+{{ else if eq $severity "info" }}
+ℹ <b>Уровень:</b> Инфо
+{{ if ne $dc "" }}🏠 Датацентр: <b>{{ $dc }}</b> {{ end }}
+{{ if ne $ns "" }}👉 Namespace: <b>{{ $ns }}</b> {{ end }}
+👉 <b>{{ $summary }}</b>
+ℹ <b>Описание: </b>{{ $descr }}
+{{ else }}
+<b>Уровень: </b>? 🤪 {{ $severity }}
+{{ end }}
+{{ else }}
+✅ <b>{{ $alertName }}</b> ✅
+{{if eq $severity "critical"}}🤬 <b>Был уровень:</b> Критический
+{{ if ne $dc "" }}🏠 Датацентр: <b>{{ $dc }}</b> {{ end }}
+{{ if ne $ns "" }}👉Namespace: <b>{{ $ns }}</b> {{ end }}
+👉 <b>{{ .Annotations.summary }}</b>
+ℹ <b>Описание:</b>{{ .Annotations.description }}
+{{ else if eq $severity "warning" }}
+😱<b>Был уровень:</b> Внимание
+{{ if ne $dc "" }}🏠 Датацентр: <b>{{ $dc }}</b> 🏠{{ end }}
+{{ if ne $ns "" }}👉 Namespace: <b>{{ $ns }}</b> 👈{{ end }}
+👉 <b>{{ .Annotations.summary }}</b>
+ℹ <b>Описание:</b>{{ .Annotations.description }}
+{{ else if eq $severity "info" }}
+ℹ <b>Был уровень:</b> Инфо
+{{- if ne $dc "" -}}🏠 Датацентр: <b>{{ $dc }}</b> {{- end -}}
+👉 <b>{{ .Annotations.summary }}</b> 👈
+<b>Описание:</b>{{ .Annotations.description }}
+{{ else }}
+<b>Был уровень:</b> НЕИЗВЕСТНО 🤪 {{ $severity }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

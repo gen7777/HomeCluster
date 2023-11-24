@@ -1,0 +1,72 @@
+groups:
+- name: Memcached_rules
+  rules:
+  #1 Упал инстанс мемкэша
+  - alert: MemcachedInstanceDown
+    expr: memcached_up == 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: Instance is not reachable (instance  {{ $labels.app }})
+      description: "Memcached Instance is not reachable {{ $labels.namespace }} /{{ $labels.app }} , {{ $labels.exported_instance }}"
+
+  #2 Нет коннектов к мемкэшу  
+  - alert: MemcachedNoConnections
+    expr: memcached_current_connections == 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Memcached no connections (instance {{ $labels.app }} )
+      description: "Memcached no connections {{ $labels.namespace }} / {{ $labels.app }}.  {{ $labels.exported_instance }}"
+
+  #3 Тротлинг коннектов к мемкэшу
+  - alert: MemcachedConnectionThrottled
+    expr: rate(memcached_connections_yielded_total[5m]) > 5
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      summary: Connection throttled because max number of requests per event process reached {{ $labels.app }})
+      description: "Connection throttled  VALUE = {{ $value }}  { $labels.namespace }} / {{ $labels.app }}.  {{ $labels.exported_instance }}"
+
+  #4 Количество соединений к мемкэшу приближается к максимуму 0.75
+  - alert: MemcachedConnectionsCloseToTheLimit_75%
+    expr: memcached_current_connections/ memcached_max_connections > 0.75
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: The mumber of connections is close to the limit (instance {{ $labels.app }})
+      description:  "The mumber of connections is close to the limit  VALUE = {{ $value }} { $labels.namespace }} / {{ $labels.app }}.  {{ $labels.exported_instance }}"
+
+  #5 Количество соединений к мемкэшу приближается к максимуму 0.95
+  - alert: MemcachedConnectionsCloseToTheLimit_95%
+    expr: memcached_current_connections/ memcached_max_connections > 0.95
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: The mumber of connections is close to the limit (instance {{ $labels.app }})
+      description: "The mumber of connections is close to the limit  VALUE = {{ $value }} { $labels.namespace }} / {{ $labels.app }}.  {{ $labels.exported_instance }}"
+
+  #6 Достиг количества максимальных соединений и вызвал ошибку соединения
+  - alert: "[Memcached] Connections Limit Reached"
+    expr: rate(memcached_connections_listener_disabled_total[5m]) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: Reached the number of maximum connections and caused a connection error (instance {{ $labels.app }})
+      description:  "Reached the number of maximum connections VALUE = {{ $value }} { $labels.namespace }} / {{ $labels.app }}.  {{ $labels.exported_instance }}"
+         
+  #7 Слишком много выселений
+  - alert: MemcachedHighEvictions
+    expr: memcached_items_evicted_total > 2
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Memcached high evictions (instance {{ $labels.app }})
+      description: " Memcached high evictions VALUE = {{ $value }} { $labels.namespace }} / {{ $labels.app }}.  {{ $labels.exported_instance }}"

@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name:  appcert-grafana
+  annotations:
+    cert-manager.io/issue-temporary-certificate: 'true'
+spec:
+  secretName: grafana
+  dnsNames: [{{ .Values.grafanaDomain }}]
+  issuerRef:
+    name: letsencrypt-cluster-prod
+    kind: ClusterIssuer
+---

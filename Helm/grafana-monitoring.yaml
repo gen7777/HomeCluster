@@ -1,0 +1,17 @@
+plugins: 
+  - alexanderzobnin-zabbix-app
+  - camptocamp-prometheus-alertmanager-datasource
+serviceName: "grafana"
+grafanaDomain: "grafana.intsite.org"
+
+image:
+  name: grafana/grafana
+  tag: 9.3.2
+
+network:
+  name: http
+  port: 3000
+
+storage:
+  class: "freenas-iscsi-csi"
+  size: "1G"

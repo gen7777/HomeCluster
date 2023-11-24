@@ -2,7 +2,7 @@ plugins:
   - alexanderzobnin-zabbix-app
   - camptocamp-prometheus-alertmanager-datasource
 serviceName: "grafana"
-grafanaDomain: "grafana.intsite.org"
+grafanaDomain: "mon.petrenko.local"
 
 image:
   name: grafana/grafana
@@ -13,5 +13,5 @@ network:
   port: 3000
 
 storage:
-  class: "freenas-iscsi-csi"
+  class: managed-nfs-storage"
   size: "1G"

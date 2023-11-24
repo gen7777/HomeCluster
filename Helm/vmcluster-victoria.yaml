@@ -185,7 +185,7 @@ vmselect:
     enabled:  false
     # -- Ingress annotations
     annotations:
-       kubernetes.io/ingress.class: nginx
+       kubernetes.io/ingress.class: system-ingress
     #   kubernetes.io/tls-acme: 'true'
 
     extraLabels: {}
@@ -405,7 +405,7 @@ vminsert:
     enabled: true
     # -- Ingress annotations
     annotations:
-       kubernetes.io/ingress.class: nginx
+       kubernetes.io/ingress.class: system-ingress
     #   kubernetes.io/tls-acme: 'true'
     extraLabels: {}
     # -- Array of host objects

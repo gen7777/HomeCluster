@@ -69,15 +69,15 @@ spec:
         app: victoriametrics-sys
     spec:
       priorityClassName: low-priority
-      initContainers:
-        - name: init-configs
-          image: busybox:1.33.0
-          command: [ 'sh', '/tmp/clear.sh' ]
-          volumeMounts:
-            - name: prepare
-              mountPath: /tmp/
-            - name: data
-              mountPath: /victoria-metrics-data
+#      initContainers:
+#        - name: init-configs
+#          image: busybox:1.33.0
+#          command: [ 'sh', '/tmp/clear.sh' ]
+#          volumeMounts:
+#            - name: prepare
+#              mountPath: /tmp/
+#            - name: data
+#              mountPath: /victoria-metrics-data
       containers:
         - name: victoriametrics-sys
           image: victoriametrics/victoria-metrics:v1.57.1
@@ -111,7 +111,7 @@ spec:
               memory: 500Mi
             limits:
               cpu: "1"
-              memory: 2Gi
+              memory: 1Gi
           volumeMounts:
             - name: data
               mountPath: /victoria-metrics-data

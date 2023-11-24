@@ -24,7 +24,7 @@ spec:
   renewBefore: 360h0m0s # 15d
   subject:
     organizations:
-    - arturs k8s
+    - petrenko k8s
   privateKey:
     algorithm: RSA
     encoding: PKCS1

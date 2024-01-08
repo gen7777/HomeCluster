@@ -1,1 +1,0 @@
-INSTALL: helm -n monitoring upgrade --install grafana-hq -f values-hq.yaml ./

@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: vmalert-cfg
-data:
-{{ (.Files.Glob (print  "config/*.yaml"  ) ).AsConfig | indent 4 }}
